@@ -1,0 +1,117 @@
+4.
+Algorithm:
+1) Define the Node Structure
+Each node in the linked list represents a memory block:
+Each memory block is represented as a node in a linked list with:
+Size of the block
+Status (allocated or free)
+Pointer to the next block
+2)  First Fit:
+Start from the head of the list.
+Find the first available block that is large enough.
+Allocate memory and update the block’s status.
+3)  Best Fit:
+Traverse the entire list.
+Find the smallest block that is large enough.
+Allocate memory and update the block’s status.
+4)  Worst Fit:
+Traverse the entire list.
+Find the largest available block.
+Allocate memory and update the block’s status.
+
+5.
+Algorithm:
+For CPU scheduling algorithms, the key metrics to calculate are:
+Turnaround Time (TAT) = Completion Time - Arrival Time
+Waiting Time (WT) = Turnaround Time - Burst Time
+Here’s how each algorithm works:
+1. First Come First Serve (FCFS)
+Sort processes by arrival time.
+Compute Completion Time sequentially.
+Derive TAT and WT from it.
+2. Shortest Job First (SJF) (Non-Preemptive)
+Sort processes by burst time (if two have the same burst time, prioritize the one that arrived earlier).
+Process jobs in this order.
+Compute Completion Time, then derive TAT and WT.
+3. Round Robin (RR)
+Use a fixed time quantum (TQ).
+Process each job for up to TQ before moving to the next in a circular queue.
+Continue until all processes are completed.
+Compute Completion Time, then derive TAT and WT.
+4. Priority Scheduling (Non-Preemptive)
+Sort processes based on priority (lower values indicate higher priority).
+If priorities match, process the earlier arrival first.
+Compute Completion Time, then derive TAT and WT.
+
+6.
+Shared memory is a region of memory mapped into the address space of multiple processes, allowing direct data exchange.
+One process (Producer) writes data, and another (Consumer) reads it.
+Synchronization is needed to prevent race conditions (using semaphores or flags).
+Algorithm
+Initialize Shared Memory
+Create a shared memory segment.
+Attach it to the process’s address space.
+Producer Process
+Wait until the shared memory is free (using a flag/semaphore).
+Write data to the shared memory.
+Set a flag to indicate data is available.
+Consumer Process
+Wait until data is available (using a flag/semaphore).
+Read data from the shared memory.
+Reset the flag to indicate memory is free.
+Cleanup
+Detach shared memory when no longer needed.
+Destroy the shared memory segment after use.
+
+7.
+The Producer-Consumer problem ensures synchronized access to a shared buffer between:
+Producer: Adds items to the buffer.
+Consumer: Removes items from the buffer.
+Semaphores are used for synchronization:
+Mutex (binary semaphore) → Ensures mutual exclusion.
+Empty (counting semaphore) → Tracks available slots in the buffer.
+Full (counting semaphore) → Tracks occupied slots in the buffer.
+Algorithm: Producer Process
+Wait (empty > 0) → Ensure buffer has space.
+Wait (mutex) → Enter critical section.
+Add item to the buffer.
+Signal (mutex) → Exit critical section.
+Signal (full) → Notify consumer that an item is available.
+Algorithm: Consumer Process
+Wait (full > 0) → Ensure buffer is not empty.
+Wait (mutex) → Enter critical section.
+Remove item from the buffer.
+Signal (mutex) → Exit critical section.
+Signal (empty) → Notify producer that space is available.
+
+8.
+Algorithm Steps
+1. Initialize Data Structures
+Available: List of free resources of each type.
+Max: Maximum demand of each process.
+Allocation: Resources currently allocated to each process.
+Need: Remaining resources required by each process (Need = Max - Allocation).
+2. Request Handling
+When a process requests resources:
+Check Need: If request exceeds its Need, reject it.
+Check Availability: If request exceeds Available, make the process wait.
+Pretend Allocation: Temporarily allocate requested resources.
+Check Safe State: Run the Safety Algorithm:
+Find a process whose Need ≤ Available.
+If found, assume it runs to completion and releases resources.
+Repeat until all processes can execute safely.
+If successful → Grant request; otherwise → Rollback allocation.
+3. Safety Algorithm (Safe State Check)
+Initialize Work = Available, Finish[i] = False for all processes.
+Find a process P[i] such that:
+Need[i] ≤ Work
+Finish[i] is False
+If found:
+Work = Work + Allocation[i] (Simulate process completion)
+Finish[i] = True
+Repeat until all processes are marked Finish = True
+If all processes complete → System is in a safe state, otherwise unsafe.
+
+
+
+
